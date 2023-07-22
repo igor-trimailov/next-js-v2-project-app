@@ -3,7 +3,7 @@ import { jwtVerify } from "jose";
 const PUBLIC_FILE = /\.(.*)$/;
 
 // had to make this again here as the other one is in a file with bcrypt which is not supported on edge runtimes
-const verifyJWT = async (jwt) => {
+const verifyJWT = async (jwt: string) => {
     const { payload } = await jwtVerify(
         jwt,
         new TextEncoder().encode(process.env.JWT_SECRET),
@@ -24,6 +24,11 @@ export default async function middleware(req: NextRequest, res: NextResponse) {
         PUBLIC_FILE.test(pathname)
     ) {
         return NextResponse.next();
+    }
+
+    if (!process.env.COOKIE_NAME) {
+        req.nextUrl.pathname = "/signin";
+        return NextResponse.redirect(req.nextUrl);
     }
 
     const jwt = req.cookies.get(process.env.COOKIE_NAME);
