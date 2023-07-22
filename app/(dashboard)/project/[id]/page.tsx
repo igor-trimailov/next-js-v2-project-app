@@ -3,7 +3,7 @@ import { getUserFromCookie } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { cookies } from "next/headers";
 
-const getData = async (projectId) => {
+const getData = async (projectId: string) => {
     const user = await getUserFromCookie(cookies());
 
     const project = await db.project.findFirst({
@@ -19,8 +19,14 @@ const getData = async (projectId) => {
     return project;
 };
 
-export default async function ProjectPage({ params }) {
+export default async function ProjectPage({
+    params,
+}: {
+    params: { id: string };
+}) {
     const project = await getData(params.id);
+
+    if (!project) return null;
 
     return (
         <div className="h-full overflow-y-auto pr-6 w-1/1">

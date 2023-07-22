@@ -9,6 +9,7 @@ import { register, signin } from "@/lib/api";
 import Input from "./Input";
 import Card from "./Card";
 import Button from "./Button";
+import { User } from "@prisma/client";
 
 const registerContent = {
     linkUrl: "/signin",
@@ -38,9 +39,8 @@ interface AuthFormProps {
 }
 
 const AuthForm: FC<AuthFormProps> = ({ mode }) => {
-    // const [formState, setFormState] = useState<AuthFormFields>({ ...initial });
     const [formState, updateFormState] = useImmer({ ...initial });
-    const [error, setError] = useState("");
+    const [_error, setError] = useState("");
 
     const router = useRouter();
 
@@ -153,6 +153,7 @@ const AuthForm: FC<AuthFormProps> = ({ mode }) => {
                         <div>
                             <span>
                                 <Link
+                                    prefetch
                                     href={content.linkUrl}
                                     className="text-blue-600 font-bold"
                                 >

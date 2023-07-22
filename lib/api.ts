@@ -1,3 +1,5 @@
+import { User } from "@prisma/client";
+
 type FetcherParams<T> = {
     url: string;
     method: "GET" | "POST" | "PUT" | "DELETE";
@@ -30,25 +32,25 @@ const fetcher = async <T>({
     }
 };
 
-export const register = (user: AuthFormFields) => {
+export const register = (user: Partial<User>) => {
     console.log("register api");
-    return fetcher<AuthFormFields>({
+    return fetcher<Partial<User>>({
         url: "/api/register",
         method: "POST",
         body: user,
     });
 };
 
-export const signin = (user: AuthFormFields) => {
+export const signin = (user: Partial<User>) => {
     console.log("signin api");
-    return fetcher<AuthFormFields>({
+    return fetcher<Partial<User>>({
         url: "/api/signin",
         method: "POST",
         body: user,
     });
 };
 
-export const createNewProject = async (name) => {
+export const createNewProject = async (name: string) => {
     return fetcher({
         url: "/api/project",
         method: "POST",

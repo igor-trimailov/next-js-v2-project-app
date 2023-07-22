@@ -1,8 +1,13 @@
 import "@/styles/global.css";
+import { FC } from "react";
 import GlassPane from "@/components/GlassPane";
 import Sidebar from "@/components/Sidebar";
 
-export default function DashboardRootLauout({ children }) {
+interface DashboardRootLayuoutProps {
+    children?: React.ReactNode;
+}
+
+const DashboardRootLayuout: FC<DashboardRootLayuoutProps> = ({ children }) => {
     return (
         <html lang="en">
             <head />
@@ -15,4 +20,6 @@ export default function DashboardRootLauout({ children }) {
             </body>
         </html>
     );
-}
+};
+
+export default DashboardRootLayuout;

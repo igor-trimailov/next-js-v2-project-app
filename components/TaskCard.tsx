@@ -1,12 +1,16 @@
+import { FC } from "react";
 import { getUserFromCookie } from "@/lib/auth";
 import { db } from "@/lib/db";
-import { TASK_STATUS } from "@prisma/client";
+import { Task, TASK_STATUS } from "@prisma/client";
 import { cookies } from "next/headers";
 import Button from "./Button";
 import Card from "./Card";
 
 const getData = async () => {
     const user = await getUserFromCookie(cookies());
+
+    if (!user) return null;
+
     const tasks = await db.task.findMany({
         where: {
             ownerId: user.id,
@@ -23,7 +27,13 @@ const getData = async () => {
 
     return tasks;
 };
-const TaskCard = async ({ title, tasks }) => {
+
+interface TaskCardProps {
+    title: string;
+    tasks: Task[];
+}
+/* @ts-expect-error Server Component */
+const TaskCard: FC<TaskCardProps> = async ({ title, tasks }) => {
     const data = tasks || (await getData());
 
     return (
