@@ -6,6 +6,8 @@ import { Suspense } from "react";
 import Greetings from "@/components/Greetings";
 import GreetingsSkeleton from "@/components/GreetingsSkeleton";
 import ProjectCard from "@/components/ProjectCard";
+import TaskCard from "@/components/TaskCard";
+import NewProject from "@/components/NewProject";
 import { cookies } from "next/headers";
 
 // wrap it in withAuth
@@ -45,10 +47,14 @@ export default async function Page() {
                             </Link>
                         </div>
                     ))}
-                    <div className="w-1/3 p-3">{/* new project here */}</div>
+                    <div className="w-1/3 p-3">
+                        <NewProject />
+                    </div>
                 </div>
                 <div className="mt-6 flex-2 grow w-full flex">
-                    <div className="w-full">{/* tasks here */}</div>
+                    <div className="w-full">
+                        <TaskCard />
+                    </div>
                 </div>
             </div>
         </div>

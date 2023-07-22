@@ -47,3 +47,12 @@ export const signin = (user: AuthFormFields) => {
         body: user,
     });
 };
+
+export const createNewProject = async (name) => {
+    return fetcher({
+        url: "/api/project",
+        method: "POST",
+        body: { name },
+        json: true,
+    });
+};
