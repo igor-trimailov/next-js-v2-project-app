@@ -3,7 +3,6 @@ const nextConfig = {
     experimental: {
         appDir: true,
         serverComponentsExternalPackages: ["bcrypt", "prisma"],
-        serverActions: true,
     },
 };
 
